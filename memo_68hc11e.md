@@ -7,6 +7,8 @@
 * Expanded Modeで動作。
 * リセットはPICから掛ける、PIC側もオープンドレインとする。
 * クロックはPICから与える。EXTAL端子に入力する。
+* ブートローディングはRESET中に行う。MPUのA/D/E/RWすべてHi-Zとなるので、PICからSRAMに直接読み書きできる。
+* シングルステップ実現: 
 
 ## 対象チップ
 
@@ -86,11 +88,29 @@ MC68H11E 52-Pin PLCC MC68HC11E1CFN2
 
 * FETオープンドレインで駆動する。PIC側(FETゲート入力)は10kプルアップ。
 * リセット信号自体は10kプルアップ。
+* リセット中はMODA/LIAピンをHにする。リセット解除後、MODA/LIAピンをHigh-Z(PIC側で入力)とする(Page47)。
+* MODBピンもHにしておく。
 
 ### リセット状態のMPUの挙動
 
-* どうやら、リセット時にもPortB/PortCをハイインピーダンスに出来なさそう。
-* ブートロードモードと、メモリフェッチは低速クロックと命令置き(+読み込み時のRAMのっとり)でやるしかなさそう。
+> During reset, internal logic in the MC68HC11A8 forces all DDR bits to 0; thus, all bidirectional I/O pins are configured as high-impedance inputs until they are reconfigured by software.
+
+> リセット中、MC68HC11A8の内部ロジックは、すべてのDDRビットを強制的に0にします。したがって、すべての双方向I/Oピンは、ソフトウェアによって再設定されるまで、ハイインピーダンス入力として構成されます。
+
+とあるので、リセット中はHi-Zになりそう。通常のブートローディングが使える。
+
+### expanded modeにおけるPortB PortCのRead/Write
+
+> When the MC68HC11A8 is operating in an expanded mode, reads and 
+writes to the port B address are treated as external accesses to allow 
+port B functions to be emulated with external logic. The MC68HC24 port 
+replacement unit (PRU) duplicates the general-purpose and handshake 
+I/O functions of ports B and C and the STRA and STRB pins. The 
+MC68HC24 connects to the multiplexed address/data bus of the 
+MC68HC11A8.
+
+外部ロジックによりPortBエミュレーションができるように外部アクセスする。これを
+使うと外部ポートをエミュレートできる。
 
 ## 外部RAM
 
