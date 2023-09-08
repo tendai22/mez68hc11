@@ -27,7 +27,7 @@ MC68H11E 52-Pin PLCC MC68HC11E1CFN2
 |--|--|--|--|
 1|Vss|Vss|5V印可。
 2|MODB/Vstby|MODB|10kohmプルアップ
-3|MODA/LIR|MODA|10kohmプルアップ
+3|MODA/LIR|MODA|10kohmプルアップ/**PICとの間に4.7k(基板改造必要)**
 4|STRA/AS|AS|HC373ラッチのG信号として
 5|E|E|PICに与える。Z80-MREQ
 6|STRB/R/W|R/W|PICに与える。Z80-RD
