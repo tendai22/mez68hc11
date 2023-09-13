@@ -33,14 +33,14 @@ MC68H11E 52-Pin PLCC MC68HC11E1CFN2
 6|STRB/R/W|R/W|PICに与える。Z80-RD
 7|EXTAL|EXTAL|PICからクロックを与える。
 8|XTAL||10kohmプルダウン
-9|PC0/ADDR0/DATA0|AD0|HC373ラッチD入力。かつ、D0-7にもつなげる　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
-10|PC1/ADDR1/DATA1|AD1|HC373ラッチD入力。かつ、D0-7にもつなげる　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
-11|PC2/ADDR2/DATA2|AD2|HC373ラッチD入力。かつ、D0-7にもつなげる　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
-12|PC3/ADDR3/DATA3|AD3|HC373ラッチD入力。かつ、D0-7にもつなげる　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
-13|PC4/ADDR4/DATA4|AD4|HC373ラッチD入力。かつ、D0-7にもつなげる　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
-14|PC5/ADDR5/DATA5|AD5|HC373ラッチD入力。かつ、D0-7にもつなげる　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
-15|PC6/ADDR6/DATA6|AD6|HC373ラッチD入力。かつ、D0-7にもつなげる　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
-16|PC7/ADDR7/DATA7|AD7|HC373ラッチD入力。かつ、D0-7にもつなげる　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+9|PC0/ADDR0/DATA0|AD0|HC373ラッチD入力。かつ、D0-7にもつなげる
+10|PC1/ADDR1/DATA1|AD1|HC373ラッチD入力。かつ、D0-7にもつなげる
+11|PC2/ADDR2/DATA2|AD2|HC373ラッチD入力。かつ、D0-7にもつなげる
+12|PC3/ADDR3/DATA3|AD3|HC373ラッチD入力。かつ、D0-7にもつなげる
+13|PC4/ADDR4/DATA4|AD4|HC373ラッチD入力。かつ、D0-7にもつなげる
+14|PC5/ADDR5/DATA5|AD5|HC373ラッチD入力。かつ、D0-7にもつなげる
+15|PC6/ADDR6/DATA6|AD6|HC373ラッチD入力。かつ、D0-7にもつなげる
+16|PC7/ADDR7/DATA7|AD7|HC373ラッチD入力。かつ、D0-7にもつなげる
 17|RESET|RESET|2N7000オープンドレインで駆動。電源ON時に<br>FET SW ON(10kプルアップ)、PIC未動作時に<br>確実にリセットが掛かるようにする。
 18|XIRQ/Vppe|XIRQ|シングルステップで使用する。ソフト最初に<br>CCRレジスタのXビットをセットしないと<br>動作しない。
 19|IRQ|IRQ|10kohm プルアップにしておく
@@ -90,6 +90,7 @@ MC68H11E 52-Pin PLCC MC68HC11E1CFN2
 * リセット信号自体は10kプルアップ。
 * リセット中はMODA/LIAピンをHにする。リセット解除後、MODA/LIAピンをHigh-Z(PIC側で入力)とする(Page47)。
 * MODBピンもHにしておく。
+* 結局、ICSP動作させるためにはHC541のOEをネゲートせんといかん。RESETの逆目なので困った。
 
 ### リセット状態のMPUの挙動
 
